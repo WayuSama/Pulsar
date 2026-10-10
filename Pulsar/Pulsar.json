@@ -1,9 +1,10 @@
 {
-    "Author": "Drovolon",
+    "Author": "Drovolon / WayuSama",
     "Name": "Pulsar",
-    "Punchline": "A plugin to sync sound files.",
-    "Description": "A plugin to sync sound files. /pulsar to open config. Requires a compatible sync plugin, like Lightless.",
-    "IconUrl": "https://raw.githubusercontent.com/Drovolon/Pulsar/main/Pulsar/images/icon.png",
+    "Punchline": "音乐同步插件，已加入 GD音乐台集成。",
+    "Description": "基于原版 Pulsar，加入 GD音乐台搜索、播放和队列功能。输入 /pulsar 打开界面。音乐同步需要兼容的同步插件，播放者和听众均需安装 Pulsar。",
+    "IconUrl": "https://raw.githubusercontent.com/WayuSama/Pulsar/main/Pulsar/images/icon.png",
+    "RepoUrl": "https://github.com/WayuSama/Pulsar",
     "ApplicableVersion": "any",
     "Tags": [
         "sync",
