@@ -17,10 +17,10 @@ using Pulsar.Playback;
 
 namespace Pulsar.Windows;
 
-internal sealed class BroadcastTab(Plugin plugin, FileDialogManager fileDialogManager, UiTheme theme)
+internal sealed partial class BroadcastTab(Plugin plugin, FileDialogManager fileDialogManager, UiTheme theme)
 {
     private static readonly string[] ModeLabels =
-        ["Play a folder", "Play files from a Penumbra mod", "Local player (Foobar2000 or DeaDBeeF via beefweb API)"];
+        ["Play a folder", "Play files from a Penumbra mod", "Local player (Foobar2000 or DeaDBeeF via beefweb API)", "GD音乐台"];
 
     private BroadcastMode mode = plugin.Configuration.BroadcastMode;
 
@@ -82,6 +82,9 @@ internal sealed class BroadcastTab(Plugin plugin, FileDialogManager fileDialogMa
             case BroadcastMode.Beefweb:
                 DrawBeefweb();
                 break;
+            case BroadcastMode.GdMusic:
+                DrawGdMusic();
+                break;
         }
     }
 
@@ -101,6 +104,9 @@ internal sealed class BroadcastTab(Plugin plugin, FileDialogManager fileDialogMa
                 break;
             case BroadcastMode.Beefweb:
                 ReloadBeefweb();
+                break;
+            case BroadcastMode.GdMusic:
+                if (plugin.GdMusic is { } gd) _ = plugin.Broadcast?.LoadGdMusic(gd.CacheDirectory);
                 break;
         }
     }

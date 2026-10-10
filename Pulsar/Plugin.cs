@@ -50,6 +50,7 @@ public sealed class Plugin : IAsyncDalamudPlugin
 
     public ListeningManager? Listening { get; private set; }
     public BroadcastManager? Broadcast { get; private set; }
+    internal Broadcast.GdMusic.GdMusicClient? GdMusic { get; private set; }
     public PenumbraIntegration? Penumbra { get; private set; }
     private SyncPrep? SyncPrep { get; set; }
 
@@ -92,6 +93,7 @@ public sealed class Plugin : IAsyncDalamudPlugin
     public async Task LoadAsync(CancellationToken cancellationToken)
     {
         var pluginDir = PluginInterface.AssemblyLocation.DirectoryName!;
+        GdMusic = new Broadcast.GdMusic.GdMusicClient(Path.Combine(PluginInterface.ConfigDirectory.FullName, "gd-music-cache"));
         var hostDir = Path.Combine(pluginDir, "hosts");
         var logDir = Path.Combine(PluginInterface.ConfigDirectory.FullName, "logs");
         var audioExe = Path.Combine(hostDir, "audio", "Pulsar.AudioHost.exe");
@@ -151,6 +153,9 @@ public sealed class Plugin : IAsyncDalamudPlugin
                     await Broadcast.LoadBeefweb(Configuration.BeefwebPort, Configuration.BeefwebUsername,
                                                 Configuration.BeefwebPassword, Configuration.BeefwebTransport);
                     break;
+                case BroadcastMode.GdMusic:
+                    await Broadcast.LoadGdMusic(GdMusic.CacheDirectory);
+                    break;
             }
         } finally
         {
@@ -199,6 +204,7 @@ public sealed class Plugin : IAsyncDalamudPlugin
         {
             // Always, always, always tear down the subprocesses if we spawned them,
             // even if something else in the dispose path throws some exception.
+            GdMusic?.Dispose();
             if (ListenEngine is not null) await ListenEngine.DisposeAsync();
             if (BroadcastEngine is not null) await BroadcastEngine.DisposeAsync();
             if (Prepare is not null) await Prepare.DisposeAsync();

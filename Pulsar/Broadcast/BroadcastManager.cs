@@ -19,6 +19,7 @@ public enum BroadcastMode
     Folder,
     Mod,
     Beefweb,
+    GdMusic,
 }
 
 public enum BroadcastProvider
@@ -218,6 +219,7 @@ public sealed class BroadcastManager : IAsyncDisposable
     }
 
     public LocalSource? ActiveLocalSource => currentLocal.Source as LocalSource;
+    internal Task LoadGdMusic(string directory) => LoadLocalSource(new GdMusic.GdCatalogLoader(directory));
     public Watcher? ActiveBeefweb => currentBeefweb?.Source as Watcher;
     public bool OnAir => published.Status.Phase != BroadcastPhase.OffAir;
     public BroadcastStatusView BroadcastStatus => published.Status;

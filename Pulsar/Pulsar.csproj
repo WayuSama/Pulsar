@@ -64,7 +64,7 @@
     <!-- Copy the host sidecars and all their deployment artifacts (dlls, etc) into their
     own directory. -->
     <Target Name="CopyHostProcesses"
-            BeforeTargets="DefaultDalamudPackagerDebug;DefaultDalamudPackagerRelease">
+            BeforeTargets="DefaultDalamudPackagerDebug;DefaultDalamudPackagerRelease;AfterBuild">
         <!-- PublishItemsOutputGroup only enumerates the deployment files; it does not ensure
              that the project producing them is current. Build explicitly here so IDE builds
              that skip project-reference builds cannot combine a stale host executable with
