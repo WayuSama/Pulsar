@@ -9,7 +9,7 @@ GitHub 仓库：https://github.com/WayuSama/Pulsar
 在卫月的「自定义插件仓库」中添加：
 
 ```text
-https://raw.githubusercontent.com/WayuSama/dalamud-plugins/main/pluginmaster.json
+https://raw.githubusercontent.com/WayuSama/dalamud-plugins/refs/heads/main/pluginmaster.json
 ```
 
 安装后输入 `/pulsar`，在 SOURCE 中选择「GD音乐台」。
