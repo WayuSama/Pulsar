@@ -49,15 +49,6 @@ jobs:
                       $version = $version.Substring(1)
                     }
 
-                    # Keep the upstream version in the tag, with a GD revision suffix.
-                    # Dalamud requires a numeric assembly version for update comparisons.
-                    if ($version -match '^(\d+\.\d+\.\d+\.\d+)-gd\.(\d+)$') {
-                      $baseVersion = [Version]::Parse($matches[1])
-                      $gdRevision = [int]$matches[2]
-                      $version = [Version]::new($baseVersion.Major, $baseVersion.Minor,
-                        $baseVersion.Build, $baseVersion.Revision + $gdRevision).ToString()
-                    }
-                    
                     if ($version -notmatch '^\d+\.\d+\.\d+(?:\.\d+)?$') {
                       throw "Release tag '$($env:RELEASE_TAG)' must be v1.2.3, 1.2.3, v1.2.3.4, or 1.2.3.4."
                     }
