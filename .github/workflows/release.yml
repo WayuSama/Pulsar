@@ -150,9 +150,9 @@ jobs:
                     RELEASE_TAG: ${{ github.event.release.tag_name }}
                 run: gh release upload $env:RELEASE_TAG .\Pulsar.zip --clobber
 
-            -   name: Publish repo branch
-                shell: pwsh
-                run: >-
-                    .\.github\scripts\Publish-DalamudRepoBranch.ps1
-                    -RepoJsonPath .\repo.json
-                    -Message "Publish Pulsar ${{ steps.release.outputs.channel }} ${{ steps.release.outputs.version }}"
+            -   name: Save metadata for the external plugin repository
+                uses: actions/upload-artifact@v4
+                with:
+                    name: pluginmaster
+                    path: ./repo.json
+                    if-no-files-found: error
