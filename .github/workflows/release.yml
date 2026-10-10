@@ -49,6 +49,11 @@ jobs:
                       $version = $version.Substring(1)
                     }
 
+                    # The GD suffix identifies the release; keep the numeric upstream version.
+                    if ($version -match '^(\d+\.\d+\.\d+\.\d+)-gd\.\d+$') {
+                      $version = $matches[1]
+                    }
+
                     if ($version -notmatch '^\d+\.\d+\.\d+(?:\.\d+)?$') {
                       throw "Release tag '$($env:RELEASE_TAG)' must be v1.2.3, 1.2.3, v1.2.3.4, or 1.2.3.4."
                     }
