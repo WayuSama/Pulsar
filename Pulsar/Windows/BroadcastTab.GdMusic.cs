@@ -89,7 +89,7 @@ internal sealed partial class BroadcastTab
             using (ImRaii.Disabled(gdPage <= 1))
                 if (ImGui.Button("上一页##gd")) SearchGdMusic(gdPage - 1);
             ImGui.SameLine();
-            using (ImRaii.Disabled(gdSongs.Count < 20))
+            using (ImRaii.Disabled(gdSongs.Count < GdMusicClient.PageSize))
                 if (ImGui.Button("下一页##gd")) SearchGdMusic(gdPage + 1);
             var songs = gdSongs;
             for (var index = 0; index < songs.Count; index++)

@@ -18,6 +18,7 @@ internal sealed record GdSong(string Id, string Source, string Name, string Arti
 internal sealed class GdMusicClient : IDisposable
 {
     internal const string ApiUrl = "https://music-api.gdstudio.xyz/api.php";
+    internal const int PageSize = 5;
     private readonly HttpClient http;
     private readonly CancellationTokenSource lifetime = new();
     private readonly SemaphoreSlim gate = new(1, 1);
@@ -54,7 +55,7 @@ internal sealed class GdMusicClient : IDisposable
 
     internal async Task<IReadOnlyList<GdSong>> Search(string keyword, string source, int page)
         => ParseSongs(await Api(("types", "search"), ("source", source), ("name", keyword.Trim()),
-            ("count", "20"), ("pages", Math.Max(1, page).ToString())));
+            ("count", PageSize.ToString()), ("pages", Math.Max(1, page).ToString()))).Take(PageSize).ToArray();
 
     internal static IReadOnlyList<GdSong> ParseSongs(string json)
     {

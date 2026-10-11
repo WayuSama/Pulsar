@@ -15,7 +15,7 @@ try
     using (var client = new GdMusicClient(root, handler))
     {
         var results = await client.Search("冷雨夜 & Beyond", "netease", 2);
-        if (!handler.LastQuery.Contains("pages=2") || !handler.LastQuery.Contains("%26")) throw new Exception("Query encoding failed");
+        if (!handler.LastQuery.Contains("pages=2") || !handler.LastQuery.Contains("count=5") || !handler.LastQuery.Contains("%26")) throw new Exception("Query encoding or page size failed");
         Console.WriteLine("PASS search keyword escaping and paging");
         var path = await client.Prepare(results[0], 128);
         var calls = handler.Calls;
